@@ -1,4 +1,43 @@
-.fnt1{
+.fnt1 {
     font-size: 60px;
     font-weight: bold;
+}
+
+.circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+
+    background: conic-gradient(green 65%,
+            lightgray 65%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle::before {
+    content: "";
+    width: 140px;
+    height: 140px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.circle span {
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media(min-width:768px) {
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+    }
 }

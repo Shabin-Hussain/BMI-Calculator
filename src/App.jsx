@@ -3,12 +3,23 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
+
+
+
+
 
 
 function App() {
-
+  
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       {/* mui app bar */}
@@ -33,23 +44,96 @@ function App() {
         </AppBar>
       </Box>
 
-      <div style={{minHeight:'150px',width:'100%'}} className='mt-2'>
+      <div style={{ minHeight: '150px', width: '100%' }} className='mt-2'>
         <h1 className='fnt1 text-center'>Calculate Your <span className='text-primary'>BMI</span></h1>
         <p className='text-center'>Know your body mass index instantly. A healthier you <br /> starts with knowing your numbers</p>
-        
+
       </div>
 
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-5">
-          <div style={{height:'400px',width:'100%'}} className='border rounded shadow p-4'>
-              <h2>BMI Calculator</h2>
-              <p>Enter your details below to calculate your BMI.</p>
+          <div style={{ minHeight: '400px', width: '100%' }} className='border rounded shadow p-4'>
+            <h2>BMI Calculator</h2>
+            <p>Enter your details below to calculate your BMI.</p>
+
+            <div className="row">
+              <div className="col-md-6 p-4">
+                <FormControl>
+                  <h6 className=''>Gender</h6>
+                  <RadioGroup row  name="row-radio-buttons-group">
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    
+                  </RadioGroup>
+                </FormControl>
+
+                   <h6 className='mt-4'>Height(cm)</h6>               
+                  <TextField id="outlined-basic" label="Enter your height" variant="outlined" className='w-100'/>
+
+
+              </div>
+              <div className="col-md-6 p-4">
+
+                  <h6 className=''>Age(years)</h6>               
+                  <TextField id="outlined-basic" label="Enter your age" variant="outlined" className='w-100'/>
+
+                    <h6 className='mt-2'>Weight(kg)</h6>               
+                  <TextField id="outlined-basic" label="Enter your weight" variant="outlined" className='w-100'/>
+              </div>
+            </div>
+
+            <Button variant="contained" className='w-100 py-2'>Calculate BMI</Button>
+
           </div>
         </div>
         <div className="col-md-5">
-          <div style={{height:'400px',width:'100%'}} className='border rounded shadow p-4'>
+          <div style={{ minHeight: '400px', width: '100%' }} className='border rounded shadow p-4'>
+             <h6>Your Result</h6>
+              
 
+              {/* circle */}
+             <div className='row'>
+               <div className='col-md-6 d-flex align-items-center justify-content-center'>
+                 <div className='circle'>
+                    <span>65%</span>
+                 </div>
+               </div>
+  
+               <div className='col-md-6'>
+                <h6 className='text-center'>BMI</h6>
+                <h1 className='text-center'>22.4</h1>
+                <p className='text-success text-center'>Normal Weight</p>
+               </div>
+             </div>
+
+             <p className='text-center mt-5 text-success'>Your BMI is in the normal range. <br />Keep up the good work!</p>
+
+          </div>
+        </div>
+        <div className="col-md-1"></div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-1"></div>
+        <div className="col-md-10">
+          <div className="row border rounded mt-2" style={{minHeight:'60px'}}>
+            <div className="col-md-3">
+              <h6 className='text-center pt-1'><FontAwesomeIcon icon={faCircleDot} style={{color: 'blue'}} />Underweight</h6>
+              <p className='text-center'>&lt;18.5</p>
+            </div>
+            <div className="col-md-3">
+              <h6 className='text-center pt-1'><FontAwesomeIcon icon={faCircleDot} style={{color: 'green'}} />Normalweight</h6>
+              <p className='text-center'>18.5-24.9</p>
+            </div>
+            <div className="col-md-3">
+              <h6 className='text-center pt-1'><FontAwesomeIcon icon={faCircleDot} style={{color: 'orange'}} />Overweight</h6>
+              <p className='text-center'>25-29.9</p>
+            </div>
+            <div className="col-md-3">
+              <h6 className='text-center pt-1'><FontAwesomeIcon icon={faCircleDot} style={{color: 'red'}} />Obese</h6>
+              <p className='text-center'>&gt;18.5</p>
+            </div>
           </div>
         </div>
         <div className="col-md-1"></div>
