@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 
 
@@ -19,6 +20,79 @@ import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
+  /* STATES to hold data */
+  const[gender, setGender] = useState(" ")
+  const[age, setAge] = useState(0)
+  const[height, setHeight] = useState(0)
+  const[weight, setWeight] = useState(0)
+  const[bmi, setBMI] = useState(0)
+
+  /* for conditional rendering */
+  const[isGender, setIsGender]= useState(true)
+  const[isAge, setIsAge]= useState(true)
+  const[isHeight, setIsHeight]= useState(true)
+  const[isWeight, setIsWeight]= useState(true)
+
+ const resolve =(e)=>{
+/*   console.log(e.target.value);
+  console.log(e.target.name); */
+
+  let name = e.target.name
+  let value = e.target.value
+  console.log(!!value.match(/^[0-9]*$/));
+  
+
+  if(!!value.match(/^[0-9]*$/)){
+    if(name=='height'){
+      setHeight(value)
+      setIsHeight(true)
+    }
+    else if(name=='weight'){
+      setWeight(value)
+      setIsWeight(true)
+    }
+    else{
+      setAge(value)
+      setIsAge(true)
+    }
+  }
+
+  else{
+    if(name=='height'){
+      setHeight(value)
+      setIsHeight(false)
+    }
+    else if(name=='weight'){
+      setWeight(value)
+      setIsWeight(false)
+    }
+    else{
+      setAge(value)
+      setIsAge(false)
+    }
+  }
+  
+
+  
+         
+ }
+
+ const validate = (e) =>{
+  let name = e.target.name
+  let value = e.target.value
+  console.log(name,value);
+  
+ }
+
+ const calculate = ()=>{
+  let newHeight = height / 100
+  
+
+ 
+
+  setBMI((weight/newHeight**2).toFixed(1))
+ }
+  
   
   return (
     <div style={{ width: '100%', height: '100vh' }}>
@@ -60,8 +134,8 @@ function App() {
             <div className="row">
               <div className="col-md-6 p-4">
                 <FormControl>
-                  <h6 className=''>Gender</h6>
-                  <RadioGroup row  name="row-radio-buttons-group">
+                  <h6 className=''>Gender(optional)</h6>
+                  <RadioGroup row  name="gender" value={gender} onChange={(e)=>validate(e)}>
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                     
@@ -69,21 +143,27 @@ function App() {
                 </FormControl>
 
                    <h6 className='mt-4'>Height(cm)</h6>               
-                  <TextField id="outlined-basic" label="Enter your height" variant="outlined" className='w-100'/>
+                  <TextField id="outlined-basic" label="Enter your height" variant="outlined" className='w-100' name='height' value={height || ""} onChange={(e)=>resolve(e)}/>
+                    {!isHeight &&
+              <p className='text-danger'>*Invalid Input</p>}
 
 
               </div>
               <div className="col-md-6 p-4">
 
                   <h6 className=''>Age(years)</h6>               
-                  <TextField id="outlined-basic" label="Enter your age" variant="outlined" className='w-100'/>
+                  <TextField id="outlined-basic" label="Enter your age" value={age || ""} variant="outlined" className='w-100' name='age' onChange={(e)=>resolve(e)}/>
+                    {!isAge &&
+              <p className='text-danger'>*Invalid Input</p>}
 
                     <h6 className='mt-2'>Weight(kg)</h6>               
-                  <TextField id="outlined-basic" label="Enter your weight" variant="outlined" className='w-100'/>
+                  <TextField id="outlined-basic" label="Enter your weight" value={weight || ""} variant="outlined" className='w-100' name='weight' onChange={(e)=>resolve(e)}/>
+                    {!isWeight &&
+              <p className='text-danger'>*Invalid Input</p>}
               </div>
             </div>
 
-            <Button variant="contained" className='w-100 py-2'>Calculate BMI</Button>
+            <Button variant="contained" className='w-100 py-2' disabled={isAge && isHeight && isWeight ? false:true} onClick={calculate}>Calculate BMI</Button>
 
           </div>
         </div>
@@ -102,7 +182,7 @@ function App() {
   
                <div className='col-md-6'>
                 <h6 className='text-center'>BMI</h6>
-                <h1 className='text-center'>22.4</h1>
+                <h1 className='text-center'>{bmi}</h1>
                 <p className='text-success text-center'>Normal Weight</p>
                </div>
              </div>
