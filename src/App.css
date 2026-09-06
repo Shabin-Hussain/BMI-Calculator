@@ -8,8 +8,8 @@
     height: 180px;
     border-radius: 50%;
 
-    background: conic-gradient(green 65%,
-            lightgray 65%);
+    background: conic-gradient(green var(--percentage),
+            lightgray var(--percentage));
 
     display: flex;
     align-items: center;
@@ -41,3 +41,4 @@
 
     }
 }
+
